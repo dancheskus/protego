@@ -1,15 +1,9 @@
 import React from 'react';
-import { Text } from 'react-native';
-import styled from 'styled-components/native';
-
-const Container = styled.View`
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-`;
+import { ScrollView } from 'react-native';
+import Record from './Record';
 
 export default () => (
-  <Container>
-    <Text>Finance Screen</Text>
-  </Container>
+  <ScrollView>
+    <Record image={require('../images/n26_logo.png')} title="N26" subtitle="Daniels Sleifmanis" />
+  </ScrollView>
 );
