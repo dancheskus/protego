@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import { StatusBar, View } from 'react-native';
+import { StatusBar } from 'react-native';
 
 import ProtegoCircleLogo from '../common/ProtegoCircleLogo';
 import DismissKeyboard from '../common/DismissKeyboard';

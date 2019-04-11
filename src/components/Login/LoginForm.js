@@ -1,6 +1,7 @@
 import React from 'react';
-
 import styled from 'styled-components/native';
+import { withNavigation } from 'react-navigation';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const Container = styled.View`
   padding: 20px;
@@ -52,33 +53,44 @@ const RegisterButtonText = styled.Text`
   color: white;
 `;
 
-export default () => (
-  <Container>
-    <Input
-      placeholder="EMAIL"
-      returnKeyType="next"
-      keyboardType="email-address"
-      autoCorrect={false}
-      autoCapitalize="none"
-      placeholderTextColor="rgba(255, 255, 255, 0.5)"
-      onSubmitEditing={() => passwordInput.focus()}
-      blurOnSubmit={false}
-    />
+export default withNavigation(({ navigation: { navigate } }) => {
+  const loginClicked = async () => {
+    try {
+      await AsyncStorage.setItem('loggedIn', 'true');
+      navigate('MainScreen');
+    } catch (e) {
+      console.warn(e);
+    }
+  };
 
-    <Input
-      placeholder="PASSWORD"
-      secureTextEntry
-      returnKeyType="go"
-      placeholderTextColor="rgba(255, 255, 255, 0.5)"
-      ref={input => (passwordInput = input)}
-    />
+  return (
+    <Container>
+      <Input
+        placeholder="EMAIL"
+        returnKeyType="next"
+        keyboardType="email-address"
+        autoCorrect={false}
+        autoCapitalize="none"
+        placeholderTextColor="rgba(255, 255, 255, 0.5)"
+        onSubmitEditing={() => passwordInput.focus()}
+        blurOnSubmit={false}
+      />
 
-    <LoginButton>
-      <LoginButtonText>Log In</LoginButtonText>
-    </LoginButton>
+      <Input
+        placeholder="PASSWORD"
+        secureTextEntry
+        returnKeyType="go"
+        placeholderTextColor="rgba(255, 255, 255, 0.5)"
+        ref={input => (passwordInput = input)}
+      />
 
-    <RegisterButton>
-      <RegisterButtonText>Register</RegisterButtonText>
-    </RegisterButton>
-  </Container>
-);
+      <LoginButton onPress={loginClicked}>
+        <LoginButtonText>Log In</LoginButtonText>
+      </LoginButton>
+
+      <RegisterButton>
+        <RegisterButtonText>Register</RegisterButtonText>
+      </RegisterButton>
+    </Container>
+  );
+});
