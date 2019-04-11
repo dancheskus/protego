@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { withNavigation } from 'react-navigation';
-import AsyncStorage from '@react-native-community/async-storage';
+
+import { login } from '../common/authHelper';
 
 const Container = styled.View`
   padding: 20px;
@@ -54,15 +55,6 @@ const RegisterButtonText = styled.Text`
 `;
 
 export default withNavigation(({ navigation: { navigate } }) => {
-  const loginClicked = async () => {
-    try {
-      await AsyncStorage.setItem('loggedIn', 'true');
-      navigate('MainScreen');
-    } catch (e) {
-      console.warn(e);
-    }
-  };
-
   return (
     <Container>
       <Input
@@ -84,7 +76,7 @@ export default withNavigation(({ navigation: { navigate } }) => {
         ref={input => (passwordInput = input)}
       />
 
-      <LoginButton onPress={loginClicked}>
+      <LoginButton onPress={() => login(navigate)}>
         <LoginButtonText>Log In</LoginButtonText>
       </LoginButton>
 

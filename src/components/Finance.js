@@ -10,6 +10,6 @@ const Container = styled.View`
 
 export default () => (
   <Container>
-    <Text>Main Screen</Text>
+    <Text>Finance Screen</Text>
   </Container>
 );
