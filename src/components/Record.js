@@ -1,7 +1,9 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, TouchableWithoutFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styled from 'styled-components/native';
+import Swipeout from 'react-native-swipeout';
+import { withNavigation } from 'react-navigation';
 
 const RecordWrapper = styled.View`
   background: ${({ light }) => (light ? '#C9C8FD' : '#bebcff')};
@@ -46,16 +48,27 @@ const NextIcon = styled(Icon)`
   color: #8b86ff;
 `;
 
-export default ({ image, title, subtitle, light }) => (
-  <RecordWrapper light={light}>
-    <RecordImageContainer>
-      {image ? <RecordImage source={image} resizeMode="contain" /> : <NoImage>{title.slice(0, 1)}</NoImage>}
-    </RecordImageContainer>
+const swipeoutBtns = [
+  {
+    text: 'Удалить',
+    backgroundColor: 'orangered',
+  },
+];
 
-    <View style={{ flex: 1 }}>
-      <RecordTitle>{title}</RecordTitle>
-      <RecordSubtitle>{subtitle}</RecordSubtitle>
-    </View>
-    <NextIcon name="ios-arrow-forward" size={20} />
-  </RecordWrapper>
-);
+export default withNavigation(({ navigation: { navigate }, image, title, subtitle, light, allowScroll }) => (
+  <Swipeout right={swipeoutBtns} autoClose backgroundColor="#8b86ff" scroll={event => allowScroll(event)}>
+    <TouchableWithoutFeedback onPress={() => navigate('FinanceEditor')}>
+      <RecordWrapper light={light}>
+        <RecordImageContainer>
+          {image ? <RecordImage source={image} resizeMode="contain" /> : <NoImage>{title.slice(0, 1)}</NoImage>}
+        </RecordImageContainer>
+
+        <View style={{ flex: 1 }}>
+          <RecordTitle>{title}</RecordTitle>
+          <RecordSubtitle>{subtitle}</RecordSubtitle>
+        </View>
+        <NextIcon name="ios-arrow-forward" size={20} />
+      </RecordWrapper>
+    </TouchableWithoutFeedback>
+  </Swipeout>
+));
