@@ -9,11 +9,11 @@ import AuthLoading from './src/components/AuthLoading';
 import { logout } from './src/components/common/authHelper';
 
 const BurgerMenuIcon = styled(Icon)`
-  padding-left: 10;
+  padding-left: 20;
 `;
 
 const AddItemIcon = styled(Icon)`
-  padding-right: 10;
+  padding-right: 20;
 `;
 
 const defaultScreen = createStackNavigator(

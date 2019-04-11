@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import styled from 'styled-components/native';
 
 const RecordWrapper = styled.View`
-  background: #bebcff;
+  background: ${({ light }) => (light ? '#C9C8FD' : '#bebcff')};
   height: 70;
   flex-direction: row;
   align-items: center;
@@ -26,6 +26,12 @@ const RecordImage = styled.Image`
   width: 30;
 `;
 
+const NoImage = styled.Text`
+  font-size: 35;
+  font-weight: 200;
+  text-transform: uppercase;
+`;
+
 const RecordTitle = styled.Text`
   font-size: 20;
   font-weight: 600;
@@ -36,19 +42,20 @@ const RecordSubtitle = styled.Text`
 `;
 
 const NextIcon = styled(Icon)`
-  padding-right: 15;
+  padding-right: 27;
+  color: #8b86ff;
 `;
 
-export default ({ image, title, subtitle }) => (
-  <RecordWrapper>
+export default ({ image, title, subtitle, light }) => (
+  <RecordWrapper light={light}>
     <RecordImageContainer>
-      <RecordImage source={image} resizeMode="contain" />
+      {image ? <RecordImage source={image} resizeMode="contain" /> : <NoImage>{title.slice(0, 1)}</NoImage>}
     </RecordImageContainer>
 
     <View style={{ flex: 1 }}>
       <RecordTitle>{title}</RecordTitle>
       <RecordSubtitle>{subtitle}</RecordSubtitle>
     </View>
-    <NextIcon name="ios-arrow-forward" size={25} />
+    <NextIcon name="ios-arrow-forward" size={20} />
   </RecordWrapper>
 );
