@@ -65,15 +65,15 @@ export default withNavigation(({ navigation: { navigate }, record, light, allowS
       <TouchableWithoutFeedback onPress={() => navigate('FinanceEditor')}>
         <RecordWrapper light={light}>
           <RecordImageContainer>
-            {/* {image ? <RecordImage source={image} resizeMode="contain" /> : <NoImage>{title.slice(0, 1)}</NoImage>} */}
-            {!noImage && (
+            {noImage ? (
+              <NoImage>{bankName.slice(0, 1)}</NoImage>
+            ) : (
               <RecordImage
                 source={{ uri: `https://logo.clearbit.com/${bankWebPage}` }}
                 onError={() => setNoImage(true)}
                 resizeMode="contain"
               />
             )}
-            {noImage && <NoImage>{bankName.slice(0, 1)}</NoImage>}
           </RecordImageContainer>
 
           <View style={{ flex: 1 }}>
