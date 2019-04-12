@@ -41,4 +41,18 @@ export default [
     sortingNumber: '534648579346',
     address: 'Lacplesa 488',
   },
+  {
+    cardholderName: 'Daniel Shleifman',
+    cardNumber: '5746397610673452',
+    date: '02/16', //expired?
+    cvv: '253',
+    bankName: 'N26',
+    bankWebPage: 'www.n26.com',
+    userName: '1237584532',
+    password: '5685679346',
+    IBAN: 'DE568945769845694564976',
+    BIC: '4578945698',
+    sortingNumber: '',
+    address: 'Elizabetes 666',
+  },
 ];

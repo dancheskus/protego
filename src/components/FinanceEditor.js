@@ -3,10 +3,9 @@ import { Text, View } from 'react-native';
 import styled from 'styled-components/native';
 import { withNavigation } from 'react-navigation';
 
-const Container = styled.View`
+const Container = styled.ScrollView`
   flex: 1;
-  align-items: center;
-  justify-content: center;
+  background: #6765a2;
 `;
 
 export default withNavigation(({ navigation: { getParam } }) => {
