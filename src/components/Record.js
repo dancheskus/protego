@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, TouchableWithoutFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styled from 'styled-components/native';
@@ -24,8 +24,9 @@ const RecordImageContainer = styled.View`
 `;
 
 const RecordImage = styled.Image`
-  height: 30;
-  width: 30;
+  border-radius: 10;
+  height: 100%;
+  width: 100%;
 `;
 
 const NoImage = styled.Text`
@@ -55,20 +56,33 @@ const swipeoutBtns = [
   },
 ];
 
-export default withNavigation(({ navigation: { navigate }, image, title, subtitle, light, allowScroll }) => (
-  <Swipeout right={swipeoutBtns} autoClose backgroundColor="#8b86ff" scroll={event => allowScroll(event)}>
-    <TouchableWithoutFeedback onPress={() => navigate('FinanceEditor')}>
-      <RecordWrapper light={light}>
-        <RecordImageContainer>
-          {image ? <RecordImage source={image} resizeMode="contain" /> : <NoImage>{title.slice(0, 1)}</NoImage>}
-        </RecordImageContainer>
+export default withNavigation(({ navigation: { navigate }, record, light, allowScroll }) => {
+  const { bankWebPage, bankName, cardholderName } = record;
+  const [noImage, setNoImage] = useState(false);
 
-        <View style={{ flex: 1 }}>
-          <RecordTitle>{title}</RecordTitle>
-          <RecordSubtitle>{subtitle}</RecordSubtitle>
-        </View>
-        <NextIcon name="ios-arrow-forward" size={20} />
-      </RecordWrapper>
-    </TouchableWithoutFeedback>
-  </Swipeout>
-));
+  return (
+    <Swipeout right={swipeoutBtns} autoClose backgroundColor="#8b86ff" scroll={event => allowScroll(event)}>
+      <TouchableWithoutFeedback onPress={() => navigate('FinanceEditor')}>
+        <RecordWrapper light={light}>
+          <RecordImageContainer>
+            {/* {image ? <RecordImage source={image} resizeMode="contain" /> : <NoImage>{title.slice(0, 1)}</NoImage>} */}
+            {!noImage && (
+              <RecordImage
+                source={{ uri: `https://logo.clearbit.com/${bankWebPage}` }}
+                onError={() => setNoImage(true)}
+                resizeMode="contain"
+              />
+            )}
+            {noImage && <NoImage>{bankName.slice(0, 1)}</NoImage>}
+          </RecordImageContainer>
+
+          <View style={{ flex: 1 }}>
+            <RecordTitle>{bankName}</RecordTitle>
+            <RecordSubtitle>{cardholderName}</RecordSubtitle>
+          </View>
+          <NextIcon name="ios-arrow-forward" size={20} />
+        </RecordWrapper>
+      </TouchableWithoutFeedback>
+    </Swipeout>
+  );
+});
