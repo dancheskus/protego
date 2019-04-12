@@ -62,7 +62,7 @@ export default withNavigation(({ navigation: { navigate }, record, light, allowS
 
   return (
     <Swipeout right={swipeoutBtns} autoClose backgroundColor="#8b86ff" scroll={event => allowScroll(event)}>
-      <TouchableWithoutFeedback onPress={() => navigate('FinanceEditor')}>
+      <TouchableWithoutFeedback onPress={() => navigate('FinanceEditor', { record })}>
         <RecordWrapper light={light}>
           <RecordImageContainer>
             {noImage ? (
