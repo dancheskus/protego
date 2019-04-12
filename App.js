@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Dimensions, SafeAreaView, View, Button, TouchableWithoutFeedback } from 'react-native';
+import { TouchableWithoutFeedback, Alert } from 'react-native';
 import {
   createSwitchNavigator,
   createAppContainer,
@@ -32,7 +32,7 @@ const defaultScreen = createStackNavigator({
     navigationOptions: ({ navigation: { navigate, openDrawer } }) => ({
       headerTitle: 'Финансы',
       headerLeft: <BurgerMenuIcon onPress={() => openDrawer()} name="md-menu" size={30} />,
-      headerRight: <AddItemIcon name="md-add-circle" size={30} onPress={() => logout(navigate)} />,
+      headerRight: <AddItemIcon name="md-add-circle" size={30} />,
     }),
   },
   FinanceEditor: { screen: FinanceEditor, navigationOptions: { headerTitle: 'Редактировать' } },
@@ -53,12 +53,12 @@ const DrawerTopIcons = styled.View`
 
 const DrawerTopIcon = styled(Icon)`
   color: #b4b1ff;
+  margin-top: 15;
 `;
 
 const DrawerLogoContainer = styled.View`
   align-items: center;
   justify-content: center;
-  /* height: 300; */
   margin-top: 40;
   transform: scale(1.3);
 `;
@@ -106,11 +106,20 @@ const DrawerItemIcon = styled(Icon)`
   color: #7f79ff;
 `;
 
-const CustomDrawerComponent = withNavigation(({ navigation: { navigate } }) => (
+const CustomDrawerComponent = withNavigation(({ navigation: { navigate, closeDrawer } }) => (
   <DrawerContainer>
     <DrawerTopIcons>
       <DrawerTopIcon name="md-settings" size={30} />
-      <DrawerTopIcon name="md-exit" size={30} />
+      <DrawerTopIcon
+        name="md-exit"
+        size={30}
+        onPress={() => {
+          Alert.alert('Выход', 'Вы хотите выйти из аккаунта?', [
+            { text: 'Да', onPress: () => logout(navigate) },
+            { text: 'Нет', style: 'cancel' },
+          ]);
+        }}
+      />
     </DrawerTopIcons>
 
     <DrawerLogoContainer>
@@ -120,7 +129,12 @@ const CustomDrawerComponent = withNavigation(({ navigation: { navigate } }) => (
     <DrawerItemsContainer>
       <DrawerTitle>Категории</DrawerTitle>
 
-      <TouchableWithoutFeedback onPress={() => navigate('Finance')}>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          navigate('Finance');
+          closeDrawer();
+        }}
+      >
         <DrawerItem>
           <DrawerItemText>Финансы</DrawerItemText>
 
