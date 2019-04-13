@@ -4,7 +4,6 @@ import styled from 'styled-components/native';
 
 import Record from './Record';
 import DB from '../fakeDB';
-import CreditCard from './CreditCard';
 
 const Container = styled.ScrollView`
   background: #6765a2;
@@ -25,8 +24,6 @@ export default () => {
           keyExtractor={item => item.cardNumber}
           renderItem={({ item, index }) => <Record record={item} light={index & 1} allowScroll={allowScroll} />}
         />
-
-        <CreditCard />
       </Container>
     </>
   );

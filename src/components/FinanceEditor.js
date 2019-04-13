@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import styled from 'styled-components/native';
 import { withNavigation } from 'react-navigation';
+import CreditCard from './CreditCard';
 
 const Container = styled.ScrollView`
   flex: 1;
@@ -9,6 +10,7 @@ const Container = styled.ScrollView`
 `;
 
 export default withNavigation(({ navigation: { getParam } }) => {
+  const params = getParam('record');
   const {
     cardholderName,
     cardNumber,
@@ -22,10 +24,12 @@ export default withNavigation(({ navigation: { getParam } }) => {
     BIC,
     sortingNumber,
     address,
-  } = getParam('record');
+  } = params;
 
   return (
     <Container>
+      <CreditCard params={params} />
+
       {!!cardholderName && <Text>Имя: {cardholderName}</Text>}
       {!!cardNumber && <Text>Номер карты: {cardNumber}</Text>}
       {!!date && <Text>Срок годности: {date}</Text>}

@@ -1,8 +1,20 @@
 import React from 'react';
-import { Text, Dimensions, View } from 'react-native';
+import { Text, Dimensions, View, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { TextInputMask } from 'react-native-masked-text';
+
+import Jcb from '../images/creditCards/jcb.svg';
+import Maestro from '../images/creditCards/maestro.svg';
+import Mastercard from '../images/creditCards/mastercard.svg';
+import Unionpay from '../images/creditCards/unionpay.svg';
+import Verve from '../images/creditCards/verve.svg';
 import Visa from '../images/creditCards/visa.svg';
+import Amex from '../images/creditCards/amex.svg';
+import Discover from '../images/creditCards/discover.svg';
+import Diners from '../images/creditCards/diners.svg';
+import Hipercard from '../images/creditCards/hipercard.svg';
+import Elo from '../images/creditCards/elo.svg';
+
 import valid from 'card-validator';
 
 const { width } = Dimensions.get('window');
@@ -59,36 +71,70 @@ const CardDetails = styled(TextInputMask)`
   color: #6863d5;
   font-size: 16;
 `;
-const CardProviderLogo = styled(Visa)`
-  /* border: 1px solid black; */
-  opacity: 0.7;
-  position: absolute;
-  bottom: 10;
-  right: 10;
-`;
 
-export default () => (
-  <Container>
-    <CardTopContainer>
-      <BankName>BlueOrange</BankName>
-      <CardholdersName>Jack Nicholson</CardholdersName>
-    </CardTopContainer>
-    <CardBottomContainer>
-      <CardNumber placeholder="0000 0000 0000 0000" type={'credit-card'} value={'4657386756486734'} />
-      <CardDetailsContainer>
-        <View>
-          <CardDetailsLabel>VALID THRU</CardDetailsLabel>
-          <CardDetails type={'datetime'} placeholder="01/19" options={{ format: 'MM/YY' }} value={'0423'} />
-        </View>
+export default ({ params }) => {
+  const { cardholderName, cardNumber, date, cvv, cardPin, bankName } = params;
 
-        <View style={{ marginLeft: 30 }}>
-          <CardDetailsLabel>CVV</CardDetailsLabel>
-          <CardDetails type={'custom'} placeholder="000" options={{ mask: '999' }} value={'123'} />
-        </View>
-      </CardDetailsContainer>
-      <CardProviderLogo width={'50'} height={30} color="#6863d5" />
+  const getCardLogo = number => {
+    const styles = StyleSheet.create({ cardStyle: { opacity: 0.7, position: 'absolute', bottom: 10, right: 10 } });
+    if (!valid.number(number).isPotentiallyValid) return;
 
-      {console.log(valid.number('4596542993001000').card.type)}
-    </CardBottomContainer>
-  </Container>
-);
+    switch (valid.number(number).card.type) {
+      case 'visa':
+        return <Visa style={styles.cardStyle} width={50} height={30} color="#6863d5" />;
+      case 'unionpay':
+        return <Unionpay style={styles.cardStyle} width={50} height={30} color="#6863d5" />;
+      case 'verve':
+        return <Verve style={styles.cardStyle} width={50} height={30} color="#6863d5" />;
+      case 'mastercard':
+        return <Mastercard style={styles.cardStyle} width={50} height={30} color="#6863d5" />;
+      case 'maestro':
+        return <Maestro style={styles.cardStyle} width={50} height={30} color="#6863d5" />;
+      case 'jcb':
+        return <Jcb style={styles.cardStyle} width={50} height={30} color="#6863d5" />;
+      case 'american-express':
+        return <Amex style={styles.cardStyle} width={50} height={30} color="#6863d5" />;
+      case 'discover':
+        return <Discover style={styles.cardStyle} width={50} height={30} color="#6863d5" />;
+      case 'diners-club':
+        return <Diners style={styles.cardStyle} width={50} height={30} color="#6863d5" />;
+      case 'hipercard':
+        return <Hipercard style={styles.cardStyle} width={50} height={30} color="#6863d5" />;
+      case 'elo':
+        return <Elo style={styles.cardStyle} width={50} height={30} color="#6863d5" />;
+
+      default:
+        break;
+    }
+  };
+
+  return (
+    <Container>
+      <CardTopContainer>
+        <BankName>{bankName}</BankName>
+        <CardholdersName>{cardholderName}</CardholdersName>
+      </CardTopContainer>
+      <CardBottomContainer>
+        <CardNumber placeholder="0000 0000 0000 0000" type={'credit-card'} value={cardNumber} />
+        <CardDetailsContainer>
+          <View>
+            <CardDetailsLabel>VALID THRU</CardDetailsLabel>
+            <CardDetails type={'datetime'} placeholder="01/19" options={{ format: 'MM/YY' }} value={date} />
+          </View>
+
+          <View style={{ marginLeft: 25 }}>
+            <CardDetailsLabel>CVV</CardDetailsLabel>
+            <CardDetails type={'custom'} placeholder="000" options={{ mask: '999' }} value={cvv} />
+          </View>
+
+          <View style={{ marginLeft: 25 }}>
+            <CardDetailsLabel>PIN</CardDetailsLabel>
+            <CardDetails type={'custom'} placeholder="0000" options={{ mask: '9999' }} value={cardPin} />
+          </View>
+        </CardDetailsContainer>
+
+        {getCardLogo(cardNumber)}
+      </CardBottomContainer>
+    </Container>
+  );
+};

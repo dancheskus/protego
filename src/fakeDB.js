@@ -2,8 +2,9 @@ export default [
   {
     cardholderName: 'Jack Black',
     cardNumber: '1234654369781234',
-    date: '03/23',
+    date: '0323',
     cvv: '375',
+    cardPin: '3758',
     bankName: 'Swedbank',
     bankWebPage: 'www.swedbank.lv',
     userName: 'rytuie367',
@@ -16,8 +17,9 @@ export default [
   {
     cardholderName: 'Roger Green',
     cardNumber: '3587346683967486',
-    date: '12/19',
+    date: '1219',
     cvv: '467',
+    cardPin: '3756',
     bankName: 'BlueOrange',
     bankWebPage: 'www.blueorangebank.com',
     userName: '12378ff4398',
@@ -30,8 +32,9 @@ export default [
   {
     cardholderName: 'Johnny Depp',
     cardNumber: '4867333356684769',
-    date: '08/26',
+    date: '0826',
     cvv: '573',
+    cardPin: '2968',
     bankName: 'Revolut',
     bankWebPage: 'www.revolut.com',
     userName: '346894945',
@@ -44,8 +47,9 @@ export default [
   {
     cardholderName: 'Daniel Shleifman',
     cardNumber: '5746397610673452',
-    date: '02/16', //expired?
+    date: '0216', //expired?
     cvv: '253',
+    cardPin: '5763',
     bankName: 'N26',
     bankWebPage: 'www.n26.com',
     userName: '1237584532',
