@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { StatusBar, FlatList, Text } from 'react-native';
 import styled from 'styled-components/native';
-import valid from 'card-validator';
 
 import Record from './Record';
 import DB from '../fakeDB';
@@ -11,20 +10,10 @@ const Container = styled.ScrollView`
   background: #6765a2;
 `;
 
-var numberValidation = valid.number('4596542993001000');
-
 export default () => {
   const [scrollEnabled, setScrollEnabled] = useState(true);
 
   const allowScroll = scrollEnabled => setScrollEnabled(scrollEnabled);
-
-  if (!numberValidation.isPotentiallyValid) {
-    console.warn('Wrong card number');
-  }
-
-  if (numberValidation.card) {
-    console.log(numberValidation);
-  }
 
   return (
     <>
