@@ -1,21 +1,10 @@
-import React from 'react';
-import { Text, Dimensions, View, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Text, Dimensions, View } from 'react-native';
 import styled from 'styled-components/native';
 import { TextInputMask } from 'react-native-masked-text';
-
-import Jcb from '../images/creditCards/jcb.svg';
-import Maestro from '../images/creditCards/maestro.svg';
-import Mastercard from '../images/creditCards/mastercard.svg';
-import Unionpay from '../images/creditCards/unionpay.svg';
-import Verve from '../images/creditCards/verve.svg';
-import Visa from '../images/creditCards/visa.svg';
-import Amex from '../images/creditCards/amex.svg';
-import Discover from '../images/creditCards/discover.svg';
-import Diners from '../images/creditCards/diners.svg';
-import Hipercard from '../images/creditCards/hipercard.svg';
-import Elo from '../images/creditCards/elo.svg';
-
 import valid from 'card-validator';
+
+import * as allCards from '../images/creditCards';
 
 const { width } = Dimensions.get('window');
 
@@ -75,37 +64,26 @@ const CardDetails = styled(TextInputMask)`
 export default ({ params }) => {
   const { cardholderName, cardNumber, date, cvv, cardPin, bankName } = params;
 
-  const getCardLogo = number => {
-    const styles = StyleSheet.create({ cardStyle: { opacity: 0.7, position: 'absolute', bottom: 10, right: 10 } });
+  const [cardLogo, setCardLogo] = useState();
+  useEffect(() => {
+    getCardLogo(cardNumber);
+  }, []);
+
+  const getCardLogo = async number => {
     if (!valid.number(number).isPotentiallyValid) return;
 
-    switch (valid.number(number).card.type) {
-      case 'visa':
-        return <Visa style={styles.cardStyle} width={50} height={30} color="#6863d5" />;
-      case 'unionpay':
-        return <Unionpay style={styles.cardStyle} width={50} height={30} color="#6863d5" />;
-      case 'verve':
-        return <Verve style={styles.cardStyle} width={50} height={30} color="#6863d5" />;
-      case 'mastercard':
-        return <Mastercard style={styles.cardStyle} width={50} height={30} color="#6863d5" />;
-      case 'maestro':
-        return <Maestro style={styles.cardStyle} width={50} height={30} color="#6863d5" />;
-      case 'jcb':
-        return <Jcb style={styles.cardStyle} width={50} height={30} color="#6863d5" />;
-      case 'american-express':
-        return <Amex style={styles.cardStyle} width={50} height={30} color="#6863d5" />;
-      case 'discover':
-        return <Discover style={styles.cardStyle} width={50} height={30} color="#6863d5" />;
-      case 'diners-club':
-        return <Diners style={styles.cardStyle} width={50} height={30} color="#6863d5" />;
-      case 'hipercard':
-        return <Hipercard style={styles.cardStyle} width={50} height={30} color="#6863d5" />;
-      case 'elo':
-        return <Elo style={styles.cardStyle} width={50} height={30} color="#6863d5" />;
+    const Card = allCards[valid.number(number).card.type];
 
-      default:
-        break;
-    }
+    if (!Card) return;
+
+    setCardLogo(
+      <Card
+        style={{ opacity: 0.7, position: 'absolute', bottom: 10, right: 10 }}
+        width="50"
+        height="30"
+        color="#6863d5"
+      />
+    );
   };
 
   return (
@@ -133,7 +111,7 @@ export default ({ params }) => {
           </View>
         </CardDetailsContainer>
 
-        {getCardLogo(cardNumber)}
+        {cardLogo}
       </CardBottomContainer>
     </Container>
   );

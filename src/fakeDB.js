@@ -1,7 +1,7 @@
 export default [
   {
     cardholderName: 'Jack Black',
-    cardNumber: '1234654369781234',
+    cardNumber: '5426357350251129',
     date: '0323',
     cvv: '375',
     cardPin: '3758',
@@ -16,7 +16,7 @@ export default [
   },
   {
     cardholderName: 'Roger Green',
-    cardNumber: '3587346683967486',
+    cardNumber: '4111111111111111',
     date: '1219',
     cvv: '467',
     cardPin: '3756',
@@ -31,7 +31,7 @@ export default [
   },
   {
     cardholderName: 'Johnny Depp',
-    cardNumber: '4867333356684769',
+    cardNumber: '340000000000009',
     date: '0826',
     cvv: '573',
     cardPin: '2968',
@@ -46,7 +46,7 @@ export default [
   },
   {
     cardholderName: 'Daniel Shleifman',
-    cardNumber: '5746397610673452',
+    cardNumber: '3745617194808980',
     date: '0216', //expired?
     cvv: '253',
     cardPin: '5763',
