@@ -1,3 +1,12 @@
 export { default as visa } from './visa.svg';
 export { default as mastercard } from './mastercard.svg';
 export { default as maestro } from './maestro.svg';
+export { default as alipay } from './alipay.svg';
+export { default as amex } from './amex.svg';
+export { default as diners } from './diners.svg';
+export { default as discover } from './discover.svg';
+export { default as elo } from './elo.svg';
+export { default as hipercard } from './hipercard.svg';
+export { default as jcb } from './jcb.svg';
+export { default as unionpay } from './unionpay.svg';
+export { default as verve } from './verve.svg';
